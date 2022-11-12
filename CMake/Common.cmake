@@ -82,8 +82,14 @@ endif (MSVC)
 
 if (UNIX OR MINGW)
     set(CMAKE_USE_RELATIVE_PATHS "1")
+    
+    
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+    
+    set_property(TARGET LASlib PROPERTY POSITION_INDEPENDENT_CODE ON)
+    
+    
     # Set compiler flags for "release" Use generic 64 bit instructions when building on CI
 	if (CI_BUILD)
 		set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG -march=x86-64")
